@@ -3,21 +3,22 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 11,
     sourceType: 'module',
-    parser: '@typescript-eslint/parser'
+    parser: '@typescript-eslint/parser',
   },
   env: {
     browser: true,
     node: true,
-    es6: true
+    es6: true,
   },
   plugins: ['prettier'],
   extends: [
     'plugin:vue/vue3-recommended',
     'eslint:recommended',
     'plugin:prettier/recommended',
-    './.eslintrc-auto-import.json'
+    './.eslintrc-auto-import.json',
   ],
   rules: {
+    'vue/multi-word-component-names': 'off',
     'vue/order-in-components': 'off',
     'vue/html-self-closing': 'off',
     'vue/require-default-prop': 'off',
@@ -27,9 +28,9 @@ module.exports = {
         singleline: 10,
         multiline: {
           max: 1,
-          allowFirstLine: false
-        }
-      }
+          allowFirstLine: false,
+        },
+      },
     ],
     'vue/singleline-html-element-content-newline': 'off',
     'vue/multiline-html-element-content-newline': 'off',
@@ -42,39 +43,29 @@ module.exports = {
       2,
       {
         before: true,
-        after: true
-      }
+        after: true,
+      },
     ],
     'block-spacing': [2, 'always'],
     'brace-style': [
       2,
       '1tbs',
       {
-        allowSingleLine: true
-      }
+        allowSingleLine: true,
+      },
     ],
     camelcase: [
       0,
       {
-        properties: 'always'
-      }
-    ],
-    'comma-dangle': [
-      'error',
-      {
-        arrays: 'never',
-        objects: 'never',
-        imports: 'never',
-        exports: 'never',
-        functions: 'never'
-      }
+        properties: 'always',
+      },
     ],
     'comma-spacing': [
       2,
       {
         before: false,
-        after: true
-      }
+        after: true,
+      },
     ],
     'comma-style': [2, 'last'],
     'constructor-super': 2,
@@ -86,8 +77,8 @@ module.exports = {
       2,
       {
         before: true,
-        after: true
-      }
+        after: true,
+      },
     ],
     'handle-callback-err': [2, '^(err|error)$'],
     indent: 'off',
@@ -95,22 +86,22 @@ module.exports = {
       2,
       {
         beforeColon: false,
-        afterColon: true
-      }
+        afterColon: true,
+      },
     ],
     'keyword-spacing': [
       2,
       {
         before: true,
-        after: true
-      }
+        after: true,
+      },
     ],
     'new-cap': [
       2,
       {
         newIsCap: true,
-        capIsNew: false
-      }
+        capIsNew: false,
+      },
     ],
     'new-parens': 2,
     'no-array-constructor': 2,
@@ -146,8 +137,8 @@ module.exports = {
       2,
       {
         allowLoop: false,
-        allowSwitch: false
-      }
+        allowSwitch: false,
+      },
     ],
     'no-lone-blocks': 2,
     'no-mixed-spaces-and-tabs': 2,
@@ -156,8 +147,8 @@ module.exports = {
     'no-multiple-empty-lines': [
       2,
       {
-        max: 1
-      }
+        max: 1,
+      },
     ],
     'no-native-reassign': 2,
     'no-negated-in-lhs': 2,
@@ -189,17 +180,16 @@ module.exports = {
     'no-unneeded-ternary': [
       2,
       {
-        defaultAssignment: false
-      }
+        defaultAssignment: false,
+      },
     ],
     'no-unreachable': 2,
     'no-unsafe-finally': 2,
     'no-unused-vars': [
-      2,
-      {
-        vars: 'all',
-        args: 'none'
-      }
+      'error',
+      // we are only using this rule to check for unused arguments since TS
+      // catches unused variables but not args.
+      { varsIgnorePattern: '.*', args: 'none' },
     ],
     'no-useless-call': 2,
     'no-useless-computed-key': 2,
@@ -210,8 +200,8 @@ module.exports = {
     'one-var': [
       2,
       {
-        initialized: 'never'
-      }
+        initialized: 'never',
+      },
     ],
     'operator-linebreak': [
       2,
@@ -219,9 +209,9 @@ module.exports = {
       {
         overrides: {
           '?': 'before',
-          ':': 'before'
-        }
-      }
+          ':': 'before',
+        },
+      },
     ],
     'padded-blocks': [2, 'never'],
     quotes: 'off',
@@ -230,8 +220,8 @@ module.exports = {
       2,
       {
         before: false,
-        after: true
-      }
+        after: true,
+      },
     ],
     'space-before-blocks': [2, 'always'],
     'space-before-function-paren': 'off',
@@ -241,8 +231,8 @@ module.exports = {
       2,
       {
         words: true,
-        nonwords: false
-      }
+        nonwords: false,
+      },
     ],
     'spaced-comment': 'off',
     'template-curly-spacing': [2, 'never'],
@@ -257,9 +247,9 @@ module.exports = {
       0,
       'always',
       {
-        objectsInObjects: false
-      }
+        objectsInObjects: false,
+      },
     ],
-    'array-bracket-spacing': [2, 'never']
-  }
+    'array-bracket-spacing': [2, 'never'],
+  },
 }

@@ -3,4 +3,5 @@
 !commitlint.config.js
 .babel.config.js
 !.umirc.ts
+/src/plugin/auto-import.d.ts
  

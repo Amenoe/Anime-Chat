@@ -1,82 +1,122 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="~@/assets/images/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div class="app-container">
+    <AppHeader></AppHeader>
+    <aside class="app-container__aside" :class="{ hide: !asideVisible }">
+      <!-- 切换按钮 -->
+      <div
+        class="switch"
+        :title="asideVisible ? '隐藏' : '展开'"
+        @click="asideVisible = !asideVisible"
+      ></div>
+      <!-- 侧边标题 -->
+      <b v-show="asideVisible" class="animate__jello">{{ WEB_NAME }}</b>
+      <AppAsideBar v-show="asideVisible" :side-list="sideList" />
+    </aside>
+    <main class="app-container__main">
+      <AppRouter />
+    </main>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<script setup lang="ts">
+import AppAsideBar from '@/layout/AppAsideBar.vue'
+import AppRouter from '@/layout/AppRouter.vue'
+import AppHeader from '@/layout/AppHeader.vue'
+import { useRouteStore } from '@/stores/modules/route'
+const WEB_NAME = import.meta.env.VITE_APP_TITLE
+const routeStore = useRouteStore()
+const sideList = routeStore.routeList
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+const asideVisible = ref(true)
+</script>
+<style lang="less">
+@import '~styles/app';
+@import '~styles/common';
+</style>
+<style scoped lang="less">
+@frameTop: 40px;
+@slideDruation: 0.625s;
 
-nav {
+.app-container {
+  position: relative;
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background: var(--bg-color);
+  color: var(--font-color);
+  &__aside {
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    flex-direction: column;
+    width: 280px;
+    height: calc(100% - @frameTop*2);
+    background: var(--aside-bg-color);
+    border-radius: var(--df-radius);
+    padding-left: @frameTop;
+    box-sizing: border-box;
+    animation: slide-in @slideDruation forwards;
+    transition: all 0.25s;
+    &.hide {
+      width: 80px;
+    }
+    & > b {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      aspect-ratio: 2/1;
+      font-size: 30px;
+      animation-duration: 1.25s;
+      animation-delay: @slideDruation;
+    }
+    .switch {
+      position: absolute;
+      top: 0;
+      right: 8px;
+      bottom: 0;
+      margin: auto 0;
+      width: 20px;
+      height: 100px;
+      cursor: pointer;
+      &::before {
+        .mask(1,var(--font-color));
+        right: 0;
+        margin: 0 auto;
+        width: 5px;
+        height: 100%;
+        border-radius: 20px;
+        opacity: 0.6;
+        transition: all 0.25s;
+      }
+      &:hover::before {
+        opacity: 0.8;
+      }
+    }
+    @keyframes slide-in {
+      from {
+        transform: translateX(-100%);
+      }
+      to {
+        transform: translateX(-@frameTop);
+      }
+    }
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+  &__main {
+    margin-top: @frameTop;
+    margin-bottom: @frameTop;
+    box-sizing: border-box;
+    height: calc(100% - @frameTop * 2);
+    border-radius: var(--df-radius);
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    opacity: 0;
+    animation: fade-in 1s @slideDruation forwards;
+    @keyframes fade-in {
+      to {
+        opacity: 1;
+      }
+    }
   }
 }
 </style>

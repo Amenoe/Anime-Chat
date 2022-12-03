@@ -1,4 +1,4 @@
-import { fileURLToPath, URL } from 'node:url'
+import path from 'path'
 
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -18,9 +18,9 @@ export default defineConfig(({ mode }) => {
         '/api': {
           target: env.VITE_SERVE_URL,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, '')
-        }
-      }
+          rewrite: (path) => path.replace(/^\/api/, '/api'),
+        },
+      },
     },
     plugins: [
       vue(),
@@ -33,23 +33,36 @@ export default defineConfig(({ mode }) => {
         eslintrc: {
           enabled: true, // Default `false` 开启生成配置文件，一次就行
           filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
-          globalsPropValue: true // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
-        }
+          globalsPropValue: true, // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
+        },
       }),
       Components({
         //自动引入组件的位置，默认是src/components
         // dirs: ['src/components'],
         resolvers: [
           // 自动导入 Element Plus 组件
-          ElementPlusResolver()
+          ElementPlusResolver(),
         ],
-        dts: 'src/plugin/components.d.ts'
-      })
+        dts: 'src/plugin/components.d.ts',
+      }),
     ],
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url))
-      }
-    }
+        '@': path.resolve('./src'),
+        '@apis': path.resolve('./src/api'),
+        '~styles': path.resolve('./src/assets/css'),
+      },
+    },
+    css: {
+      preprocessorOptions: {
+        // 全局less配置
+        less: {
+          modifyVars: {
+            hack: `true; @import (reference) "${path.resolve('src/assets/css/util.less')}";`,
+          },
+          javascriptEnabled: true,
+        },
+      },
+    },
   }
 })
