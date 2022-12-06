@@ -21,7 +21,7 @@ export const useRouteStore = defineStore('route', () => {
       icon: 'AlarmClock',
     },
     {
-      name: '关于我',
+      name: '个人中心',
       routeName: 'User',
       routePath: 'user',
       icon: 'UserFilled',

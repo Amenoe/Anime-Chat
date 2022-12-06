@@ -1,5 +1,5 @@
 <template>
-  <div id="search" class="page">
+  <div id="timeline" class="page">
     <img src="~@/assets/images/empty.png" alt="" />
     <h1>该页面施工中</h1>
   </div>
@@ -10,7 +10,7 @@
 <style scoped lang="less">
 @import '~styles/page';
 
-#search {
+#timeline {
   display: flex;
   flex-direction: row;
   justify-content: center;

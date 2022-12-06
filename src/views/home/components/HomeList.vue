@@ -6,8 +6,11 @@
         <template v-for="item in carousel" :key="item.anime_id">
           <div class="list-item">
             <div class="content">
-              <el-image :src="item.cover"> </el-image>
-              <div class="title">{{ item.title }}</div>
+              <div class="content-left">
+                <el-image :src="item.cover"> </el-image>
+                <div :title="item.title" class="title">{{ item.title }}</div>
+              </div>
+              <!-- <div v-if="item.anime_id === clickId" class="content-right">这里是详情</div> -->
             </div>
           </div>
         </template>
@@ -19,6 +22,8 @@
 <script setup lang="ts">
 import type { IAnime } from '@/api/types'
 import type { PropType } from 'vue'
+
+const clickId = ref<number>(0)
 
 const props = defineProps({
   title: {
@@ -40,11 +45,19 @@ const carouselData = computed(() => {
   }
   return newArr
 })
+
+// const comicClick = (id: number) => {
+//   clickId.value === id ? (clickId.value = 0) : (clickId.value = id)
+//   console.log(id)
+// }
 </script>
 
 <style scoped lang="less">
-@list-margin: 22px;
+@list-margin: 30px;
 @radius: 8px;
+@comic-width: 180px;
+@comic-margin: 25px;
+
 .home-list {
   margin-bottom: @list-margin;
 
@@ -55,28 +68,38 @@ const carouselData = computed(() => {
   }
 }
 .carousel-list {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: start;
 
   .list-item {
-    width: calc((100% - 25px * 5) / 6);
     height: 100%;
-    margin-right: 25px;
+    margin-right: @comic-margin;
+
     .title {
-      width: 80%;
+      width: calc(@comic-width - @radius);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       margin-bottom: @radius;
-      margin-left: @radius;
+      padding-left: @radius;
     }
     .content {
-      width: 100%;
       height: 100%;
-      .el-image {
-        height: calc(100% - 30px);
-        border-radius: @radius;
+      display: flex;
+      flex-direction: row;
+
+      &-left {
+        width: 100%;
+        .el-image {
+          width: @comic-width;
+          height: calc(100% - 30px);
+          border-radius: @radius;
+        }
+      }
+      &-right {
+        width: 200px;
       }
     }
   }
