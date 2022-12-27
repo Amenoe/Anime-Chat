@@ -1,0 +1,106 @@
+<template>
+  <el-dialog
+    v-model="dialogVisible"
+    class="register-dialog"
+    title="用户注册"
+    center
+    :close-on-click-modal="false"
+  >
+    <el-form ref="registerRef" label-position="left" class="register-form" :model="registerForm">
+      <el-form-item prop="username">
+        <el-input
+          v-model="registerForm.username"
+          prefix-icon="User"
+          placeholder="请输入账号"
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="nickname">
+        <el-input
+          v-model="registerForm.nickname"
+          prefix-icon="UserFilled"
+          placeholder="请输入昵称"
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="password">
+        <el-input
+          v-model="registerForm.password"
+          prefix-icon="Lock"
+          placeholder="请输入密码"
+          show-password
+        ></el-input>
+      </el-form-item>
+      <el-button type="primary" @click="registerClick"> 立即注册 </el-button>
+    </el-form>
+  </el-dialog>
+</template>
+
+<script setup lang="ts">
+import { register } from '@/api/login'
+
+const dialogVisible = ref(false)
+
+const registerForm = ref({
+  username: '',
+  nickname: '',
+  password: '',
+})
+
+const registerClick = () => {
+  register(registerForm.value).then(() => {
+    ElNotification({
+      type: 'success',
+      title: '注册成功',
+    })
+    dialogVisible.value = false
+  })
+}
+defineExpose({
+  dialogVisible,
+})
+</script>
+
+<style lang="less">
+@input-width: 300px;
+@input-height: 35px;
+// 因为对话框是使用Teleport渲染的，所以用在全局写样式
+.register-dialog {
+  width: 400px;
+  background-color: var(--bg-color);
+  border-radius: var(--df-radius);
+  .el-dialog__title {
+    font-weight: 700;
+    color: #fff;
+  }
+
+  // 登录框
+  .register-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    //表单输入框
+    .el-input {
+      width: @input-width;
+      height: @input-height;
+    }
+    .el-input__inner::selection {
+      background-color: #318efe !important;
+      color: #fff !important;
+    }
+    .el-button {
+      margin-top: 8px;
+      width: @input-width;
+      height: @input-height;
+      margin-bottom: 8px;
+      background-color: var(--primary-color);
+    }
+  }
+}
+
+.dialog-footer {
+  .register {
+    cursor: pointer;
+    color: var(--primary-color);
+  }
+}
+</style>

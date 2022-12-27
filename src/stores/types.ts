@@ -1,3 +1,3 @@
-import type { IAnime, IHomeData } from '@/api/types'
+import type * as apiType from '@/api/types'
 
-export type { IAnime, IHomeData }
+export type { apiType }

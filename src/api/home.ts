@@ -1,8 +1,18 @@
 import request from '@/common/request'
-import type { IHomeData } from './types'
+import type { IHomeData, IAnimeDetail } from './types'
 
+/**
+ * 首页数据
+ * @returns Promise
+ */
 export function getHomeData() {
   return request.get<IHomeData>({
-    url: '/anime/getIndex',
+    url: '/anime/index',
+  })
+}
+
+export function getDetailData(id: string) {
+  return request.get<IAnimeDetail>({
+    url: '/anime/detail/' + id,
   })
 }

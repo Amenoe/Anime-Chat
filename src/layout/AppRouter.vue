@@ -1,7 +1,7 @@
 <template>
   <router-view v-slot="{ Component }">
     <transition :name="transition">
-      <keep-alive exclude="Home">
+      <keep-alive :exclude="['Home', 'User', 'Detail']">
         <component :is="Component" />
       </keep-alive>
     </transition>
@@ -11,12 +11,12 @@
 <script setup lang="ts">
 import { useRouteStore } from '@/stores/modules/route'
 import { useRoute } from 'vue-router'
-const $route = useRoute()
+const route = useRoute()
 const routeStore = useRouteStore()
 const routePaths = routeStore.getRoutePath
 const transition = ref('')
 watch(
-  () => $route.fullPath,
+  () => route.fullPath,
   (toName, fromName) => {
     toName = String(toName)
     fromName = String(fromName)

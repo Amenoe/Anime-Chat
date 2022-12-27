@@ -6,7 +6,7 @@
         <template v-for="item in carousel" :key="item.anime_id">
           <div class="list-item">
             <div class="content">
-              <div class="content-left">
+              <div class="content-left" @click="animeClick(item.anime_id)">
                 <el-image :src="item.cover"> </el-image>
                 <div :title="item.title" class="title">{{ item.title }}</div>
               </div>
@@ -21,9 +21,10 @@
 
 <script setup lang="ts">
 import type { IAnime } from '@/api/types'
+import router from '@/router'
 import type { PropType } from 'vue'
 
-const clickId = ref<number>(0)
+// const clickId = ref<number>(0)
 
 const props = defineProps({
   title: {
@@ -50,6 +51,10 @@ const carouselData = computed(() => {
 //   clickId.value === id ? (clickId.value = 0) : (clickId.value = id)
 //   console.log(id)
 // }
+
+const animeClick = (anime_id: number) => {
+  router.push('/detail/' + anime_id)
+}
 </script>
 
 <style scoped lang="less">
@@ -96,6 +101,7 @@ const carouselData = computed(() => {
           width: @comic-width;
           height: calc(100% - 30px);
           border-radius: @radius;
+          cursor: pointer;
         }
       }
       &-right {

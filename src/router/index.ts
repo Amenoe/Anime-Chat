@@ -25,6 +25,11 @@ const routes: RouteRecordRaw[] = [
     name: 'User',
     component: () => import('@/views/user/User.vue'),
   },
+  {
+    path: '/detail/:anime_id',
+    name: 'Detail',
+    component: () => import('@/views/detail/Detail.vue'),
+  },
 ]
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),

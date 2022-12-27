@@ -1,5 +1,6 @@
 import axios from 'axios'
 import type { AxiosInstance, AxiosRequestConfig } from 'axios'
+import localCache from '@/utils/cache'
 
 export default class AxiosUtils {
   private instance: AxiosInstance
@@ -15,6 +16,12 @@ export default class AxiosUtils {
     if (this.instance === null) return
     this.instance.interceptors.request.use((request) => {
       //可以用来添加请求验证
+      const token = localCache.getCache('token')
+      if (token) {
+        if (request && request.headers) {
+          request.headers.Authorization = `Bearer ${token}`
+        }
+      }
       return request
     })
   }
@@ -26,29 +33,31 @@ export default class AxiosUtils {
     this.instance.interceptors.response.use(
       (response) => {
         //拦截服务器发送的错误代码
-        if (response.data.code != 0) {
+        if (response.data.code != 200) {
+          console.log('弹出错误')
           ElNotification({
             type: 'error',
             title: `请求错误 ${response.data.code}`,
-            message: response.data.msg,
+            message: response.data.message,
           })
         } else {
           return response.data.data
         }
       },
       (error) => {
-        const status = error.toString()
-        console.log(status)
-        if (
-          ['timeout ', 'Invalid URL', '401', '403', '404', '500', 'Network Error'].some((item) => {
-            return status.includes(item)
-          })
-        ) {
-          // store.dispatch('logout')
+        console.log(error)
+        //拦截服务器发送的错误代码
+        if (error.response.status === 500) {
           ElNotification({
             type: 'error',
-            title: '资源获取错误',
-            message: '请求源存在问题，请检查或修改 服务器地址',
+            title: `请求错误 ${error.response.status}`,
+            message: '服务器出现问题，请稍等QAQ',
+          })
+        } else {
+          ElNotification({
+            type: 'error',
+            title: `请求错误 ${error.response.data.code}`,
+            message: error.response.data.message,
           })
         }
         return Promise.reject()

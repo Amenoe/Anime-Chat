@@ -1,41 +1,59 @@
 <template>
   <div class="app-header">
     <div class="app-header_user">
-      <el-avatar class="avatar" :size="28" icon="Avatar" @click="dialogVisible = true" />
+      <el-avatar :class="{ avatar: !isLogin }" :size="28" :src="avatarUrl" @click="showDialog" />
+      <LoginDialog ref="loginRef" @go-register="showRegisterDialog"></LoginDialog>
+      <RegisterDialog ref="registerRef"></RegisterDialog>
     </div>
-
-    <el-dialog v-model="dialogVisible" class="login-dialog" title="用户登录" center>
-      <el-form ref="loginRef" label-position="left" class="login-form" :model="loginForm">
-        <el-form-item prop="name">
-          <el-input v-model="loginForm.name" prefix-icon="User"></el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input v-model="loginForm.password" prefix-icon="Lock" show-password></el-input>
-        </el-form-item>
-        <el-button type="primary" @click="loginClick"> 立即登录 </el-button>
-      </el-form>
-      <template #footer>
-        <span class="dialog-footer">
-          还没有账号？<span class="register" @click="registerClick">点击注册</span>
-        </span>
-      </template>
-    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-const avatarUrl = ref('https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png')
-const dialogVisible = ref(false)
-const loginForm = ref({
-  name: '',
-  password: '',
+import LoginDialog from '@/components/Login/LoginDialog.vue'
+import RegisterDialog from '@/components/Login/RegisterDialog.vue'
+import router from '@/router'
+import { useLoginStore } from '@/stores/modules/login'
+
+const avatarUrl = ref('')
+const isLogin = computed(() => {
+  return loginStore.token !== ''
 })
 
-const loginClick = () => {
-  console.log(loginForm.value)
+const loginStore = useLoginStore()
+const userInfo = loginStore.userInfo
+
+watch(
+  isLogin,
+  () => {
+    //判断是否登录
+    if (isLogin.value) {
+      //登录
+      avatarUrl.value =
+        userInfo?.avatar ||
+        'https://i0.hdslb.com/bfs/face/99c781c93f035e005d1ee89b03f9d1f33ef2b933.jpg'
+    } else {
+      //未登录
+      avatarUrl.value = 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
+    }
+  },
+  {
+    immediate: true,
+  },
+)
+
+//组件实例
+const loginRef = ref<InstanceType<typeof LoginDialog>>()
+const registerRef = ref<InstanceType<typeof LoginDialog>>()
+const showDialog = () => {
+  if (isLogin.value) {
+    router.push('/user')
+  } else {
+    loginRef.value!.dialogVisible = true
+  }
 }
-const registerClick = () => {
-  console.log('去注册')
+
+const showRegisterDialog = () => {
+  registerRef.value!.dialogVisible = true
 }
 </script>
 
@@ -50,50 +68,12 @@ const registerClick = () => {
   align-items: center;
   z-index: 10;
   &_user {
+    .avatar {
+      border: solid 2px rgba(0, 0, 0, 0);
+    }
     .avatar:hover {
-      color: var(--primary-color);
+      border: solid 2px var(--primary-color);
     }
-  }
-}
-</style>
-<style lang="less">
-@input-width: 300px;
-@input-height: 35px;
-// 因为对话框是使用Teleport渲染的，所以用在全局写样式
-.login-dialog {
-  width: 400px;
-  background-color: var(--bg-color);
-  border-radius: var(--df-radius);
-  .el-dialog__title {
-    font-weight: 700;
-    color: #fff;
-  }
-
-  // 登录框
-  .login-form {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    //表单输入框
-    .el-input {
-      width: @input-width;
-      height: @input-height;
-    }
-    .el-button {
-      margin-top: 8px;
-      width: @input-width;
-      height: @input-height;
-      margin-bottom: 8px;
-      background-color: var(--primary-color);
-    }
-  }
-}
-
-.dialog-footer {
-  .register {
-    cursor: pointer;
-    color: var(--primary-color);
   }
 }
 </style>
