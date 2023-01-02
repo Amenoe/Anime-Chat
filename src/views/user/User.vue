@@ -65,7 +65,7 @@ const updateItem: IFormItem[] = [
     rules: [
       { required: true, message: '昵称不能为空', trigger: 'blur' },
       {
-        pattern: /^[a-zA-Z0-9\u4e00-\u9fa5]{1,6}$/,
+        pattern: /^[a-zA-Z0-9\u4e00-\u9fa5]{1,10}$/,
         message: '请输入正确的昵称',
         trigger: 'change',
       },
@@ -74,12 +74,9 @@ const updateItem: IFormItem[] = [
   {
     field: 'password',
     label: '新密码',
-    type: 'input',
+    type: 'password',
     placeholder: '请输入新密码',
-    rules: [
-      { required: true, message: '密码不能为空', trigger: 'blur' },
-      { pattern: /^[a-zA-Z0-9]{6,10}$/, message: '请输入正确的密码', trigger: 'change' },
-    ],
+    rules: [{ required: true, message: '密码不能为空', trigger: 'blur' }],
   },
   {
     field: 'avatar',
@@ -123,6 +120,7 @@ const updateClick = () => {
           type: 'success',
           title: '更新成功',
         })
+        location.reload()
       })
     }
   })

@@ -1,7 +1,7 @@
 <template>
   <router-view v-slot="{ Component }">
     <transition :name="transition">
-      <keep-alive :exclude="['Home', 'User', 'Detail']">
+      <keep-alive include="Search">
         <component :is="Component" />
       </keep-alive>
     </transition>

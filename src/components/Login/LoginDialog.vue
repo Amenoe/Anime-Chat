@@ -6,12 +6,27 @@
     center
     :close-on-click-modal="false"
   >
-    <el-form ref="loginRef" label-position="left" class="login-form" :model="loginForm">
+    <el-form
+      ref="loginRef"
+      label-position="left"
+      class="login-form"
+      :rules="loginRules"
+      :model="loginForm"
+    >
       <el-form-item prop="username">
-        <el-input v-model="loginForm.username" prefix-icon="User"></el-input>
+        <el-input
+          v-model="loginForm.username"
+          prefix-icon="User"
+          placeholder="请输入账号"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input v-model="loginForm.password" prefix-icon="Lock" show-password></el-input>
+        <el-input
+          v-model="loginForm.password"
+          prefix-icon="Lock"
+          placeholder="请输入密码"
+          show-password
+        ></el-input>
       </el-form-item>
       <el-button type="primary" @click="loginClick"> 立即登录 </el-button>
     </el-form>
@@ -25,22 +40,43 @@
 
 <script setup lang="ts">
 import { useLoginStore } from '@/stores/modules/login'
+import type { FormInstance } from 'element-plus'
 const dialogVisible = ref(false)
 const loginStore = useLoginStore()
+
+const loginRef = ref<FormInstance>()
 
 const loginForm = ref({
   username: '',
   password: '',
 })
 
+//自定义校验规则
+const loginRules = {
+  username: [
+    //分别是：是否必须，提示信息，触发时机
+    { required: true, trigger: 'blur', message: '请输入您的账号' },
+    {
+      pattern: /^[A-Za-z0-9]{3,10}$/,
+      trigger: 'blur',
+      message: '请输入3到10位字母或数字',
+    },
+  ],
+  password: [{ required: true, trigger: 'blur', message: '请输入您的密码' }],
+}
+
 // 登录事件
 const loginClick = () => {
-  loginStore.loginAction(loginForm.value).then(() => {
-    dialogVisible.value = false
-    ElNotification({
-      type: 'success',
-      title: '登录成功',
-    })
+  loginRef.value?.validate((valid) => {
+    if (valid) {
+      loginStore.loginAction(loginForm.value).then(() => {
+        dialogVisible.value = false
+        ElNotification({
+          type: 'success',
+          title: '登录成功',
+        })
+      })
+    }
   })
 }
 const emit = defineEmits(['goRegister'])

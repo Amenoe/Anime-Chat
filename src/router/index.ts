@@ -30,6 +30,11 @@ const routes: RouteRecordRaw[] = [
     name: 'Detail',
     component: () => import('@/views/detail/Detail.vue'),
   },
+  {
+    path: '/chat',
+    name: 'Chat',
+    component: () => import('@/views/chat/Chat.vue'),
+  },
 ]
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),

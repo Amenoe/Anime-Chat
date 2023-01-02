@@ -1,5 +1,6 @@
 import { createPinia } from 'pinia'
 import { useLoginStore } from './modules/login'
+import { useHomeStore } from './modules/home'
 
 const pinia = createPinia()
 pinia.use(({ store }) => {
@@ -11,6 +12,7 @@ pinia.use(({ store }) => {
 
 export function setupRouter() {
   useLoginStore().loadLocalLogin()
+  useHomeStore().loadAnimeData()
 }
 
 export default pinia

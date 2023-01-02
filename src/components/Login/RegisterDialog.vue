@@ -6,7 +6,13 @@
     center
     :close-on-click-modal="false"
   >
-    <el-form ref="registerRef" label-position="left" class="register-form" :model="registerForm">
+    <el-form
+      ref="registerRef"
+      label-position="left"
+      class="register-form"
+      :rules="loginRules"
+      :model="registerForm"
+    >
       <el-form-item prop="username">
         <el-input
           v-model="registerForm.username"
@@ -36,8 +42,11 @@
 
 <script setup lang="ts">
 import { register } from '@/api/login'
+import type { FormInstance } from 'element-plus'
 
 const dialogVisible = ref(false)
+
+const registerRef = ref<FormInstance>()
 
 const registerForm = ref({
   username: '',
@@ -45,13 +54,39 @@ const registerForm = ref({
   password: '',
 })
 
+//自定义校验规则
+const loginRules = {
+  username: [
+    //分别是：是否必须，提示信息，触发时机
+    { required: true, trigger: 'blur', message: '请输入您的账号' },
+    {
+      pattern: /^[A-Za-z0-9]{3,10}$/,
+      trigger: 'blur',
+      message: '请输入3到10位字母或数字',
+    },
+  ],
+  nickname: [
+    { required: true, trigger: 'blur', message: '请输入您的昵称' },
+    {
+      pattern: /^[a-zA-Z0-9\u4e00-\u9fa5]{1,10}$/,
+      message: '请输入正确的昵称',
+      trigger: 'change',
+    },
+  ],
+  password: [{ required: true, trigger: 'blur', message: '请输入您的密码' }],
+}
+
 const registerClick = () => {
-  register(registerForm.value).then(() => {
-    ElNotification({
-      type: 'success',
-      title: '注册成功',
-    })
-    dialogVisible.value = false
+  registerRef.value?.validate((valid) => {
+    if (valid) {
+      register(registerForm.value).then(() => {
+        ElNotification({
+          type: 'success',
+          title: '注册成功',
+        })
+        dialogVisible.value = false
+      })
+    }
   })
 }
 defineExpose({

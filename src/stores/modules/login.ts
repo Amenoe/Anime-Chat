@@ -21,7 +21,6 @@ export const useLoginStore = defineStore('login', () => {
   async function updateUserAction(id: string, data: Partial<IUserInfo>) {
     //更新用户信息
     const updateData = await updateUserInfo(id, data)
-    console.log(updateData)
     userInfo.value = updateData
     localCache.setCache('userInfo', updateData)
   }

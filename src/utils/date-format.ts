@@ -6,3 +6,11 @@ const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss'
 export function formatUtcString(utcString: string, format: string = DATE_TIME_FORMAT) {
   return dayjs.utc(utcString).utcOffset(8).format(format)
 }
+
+export function formatUnixStamp(time: number, format: string = DATE_TIME_FORMAT) {
+  return dayjs.unix(time).format('YYYY-MM-DD')
+}
+
+export function formatStamp(time: number, format: string = DATE_TIME_FORMAT) {
+  return dayjs(time).format('YYYY-MM-DD HH:mm:ss')
+}

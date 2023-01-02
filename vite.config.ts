@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => {
   return {
     base: env.VITE_BASE_URL, //项目根路径
     server: {
+      host: '0.0.0.0',
       port: 8012,
       proxy: {
         '/api': {

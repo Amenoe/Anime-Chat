@@ -13,11 +13,12 @@
             <span>{{ item.field }}</span>
           </template>
 
-          <template v-if="item.type === 'input'">
+          <template v-if="item.type === 'input' || item.type === 'password'">
             <el-input
               v-bind="item.otherOptions"
               v-model="formData[item.field]"
               :placeholder="item.placeholder"
+              :show-password="item.type === 'password'"
             ></el-input>
           </template>
           <template v-else-if="item.type === 'select'">
