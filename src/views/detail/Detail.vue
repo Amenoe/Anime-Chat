@@ -18,6 +18,11 @@
         <el-descriptions-item label="简介">{{ detailData.description }}</el-descriptions-item>
       </el-descriptions>
     </div>
+    <div class="episode">
+      <template v-for="ep in detailData.anime_id" :key="ep.ep_id">
+        <div class="episode-item">{{ ep.title }}</div>
+      </template>
+    </div>
     <el-button class="detail-btn" type="danger" @click="newChatClick">加入聊天室</el-button>
   </div>
 </template>
@@ -36,7 +41,7 @@ const loginStore = useLoginStore()
 homeStore.detailDataAction(anime_id)
 
 const detailData = computed(() => homeStore.animeDetail)
-
+console.log(detailData.value)
 //状态
 const status = computed(() => {
   return `${homeStore.animeDetail.anime_id.length}集(${homeStore.animeDetail.season})`
@@ -66,6 +71,17 @@ const newChatClick = () => {
   }
   .anime-desc {
     width: 500px;
+  }
+}
+
+.episode {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+
+  &-item {
+    width: 200px;
+    height: 50px;
   }
 }
 

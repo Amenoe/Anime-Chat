@@ -1,46 +1,25 @@
-# anime-chat-client
+# 动漫聊天室
 
-This template should help get you started developing with Vue 3 in Vite.
+- 本人毕业设计 `动漫聊天室` 的客户端，界面参考 [masami](https://github.com/Adicwu/masami)
 
-## Recommended IDE Setup
+- 前端使用 `Vue3`+ `TS` + `Vite` 开发，组件库采用 `Element Plus`
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- 使用 [web-norm](https://github.com/lyh0371/web-norm) 进行项目规范化搭建
 
-## Type Support for `.vue` Imports in TS
+- 做的很烂 XD，只实现了基本的聊天功能，后面会慢慢改进的
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+---
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+后端跳转至 [anime-chat-server](https://github.com/Amenoe/anime-chat-server)
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## 界面截图
 
-## Customize configuration
+![QQ截图20230210165113](https://gcore.jsdelivr.net/gh/Amenoe/image-hosting/Other/QQ%E6%88%AA%E5%9B%BE20230210165113.png)
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+![QQ截图20230210165125](https://gcore.jsdelivr.net/gh/Amenoe/image-hosting/Other/QQ%E6%88%AA%E5%9B%BE20230210165125.png)
 
-## Project Setup
+![QQ截图20230210165200](https://gcore.jsdelivr.net/gh/Amenoe/image-hosting/Other/QQ%E6%88%AA%E5%9B%BE20230210165200.png)
 
-```sh
-pnpm install
-```
+![QQ截图20230210165215](https://gcore.jsdelivr.net/gh/Amenoe/image-hosting/Other/QQ%E6%88%AA%E5%9B%BE20230210165215.png)
 
-### Compile and Hot-Reload for Development
-
-```sh
-pnpm dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+![QQ截图20230210165226](https://gcore.jsdelivr.net/gh/Amenoe/image-hosting/Other/QQ%E6%88%AA%E5%9B%BE20230210165226.png)

@@ -7,7 +7,6 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    副本: typeof import('./../components/Login/LoginDialog - 副本.vue')['default']
     AppForm: typeof import('./../components/AppForm/AppForm.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
