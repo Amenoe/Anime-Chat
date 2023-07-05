@@ -14,12 +14,12 @@
 
 ## 界面截图
 
-![QQ截图20230210165113](https://gcore.jsdelivr.net/gh/Amenoe/image-hosting/Other/QQ%E6%88%AA%E5%9B%BE20230210165113.png)
+![QQ截图20230210165113](https://cdn.jsdelivr.net/gh/Amenoe/image-hosting/Other/QQ%E6%88%AA%E5%9B%BE20230210165113.png)
 
-![QQ截图20230210165125](https://gcore.jsdelivr.net/gh/Amenoe/image-hosting/Other/QQ%E6%88%AA%E5%9B%BE20230210165125.png)
+![QQ截图20230210165125](https://cdn.jsdelivr.net/gh/Amenoe/image-hosting/Other/QQ%E6%88%AA%E5%9B%BE20230210165125.png)
 
-![QQ截图20230210165200](https://gcore.jsdelivr.net/gh/Amenoe/image-hosting/Other/QQ%E6%88%AA%E5%9B%BE20230210165200.png)
+![QQ截图20230210165200](https://cdn.jsdelivr.net/gh/Amenoe/image-hosting/Other/QQ%E6%88%AA%E5%9B%BE20230210165200.png)
 
-![QQ截图20230210165215](https://gcore.jsdelivr.net/gh/Amenoe/image-hosting/Other/QQ%E6%88%AA%E5%9B%BE20230210165215.png)
+![QQ截图20230210165215](https://cdn.jsdelivr.net/gh/Amenoe/image-hosting/Other/QQ%E6%88%AA%E5%9B%BE20230210165215.png)
 
-![QQ截图20230210165226](https://gcore.jsdelivr.net/gh/Amenoe/image-hosting/Other/QQ%E6%88%AA%E5%9B%BE20230210165226.png)
+![QQ截图20230210165226](https://cdn.jsdelivr.net/gh/Amenoe/image-hosting/Other/QQ%E6%88%AA%E5%9B%BE20230210165226.png)
